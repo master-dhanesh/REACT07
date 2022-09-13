@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const { check } = require("express-validator");
 
-const { homepage, signup } = require("../controllers/indexControllers");
+const { homepage, signup, signin } = require("../controllers/indexControllers");
 
 /**
  * @route /
@@ -12,19 +12,9 @@ const { homepage, signup } = require("../controllers/indexControllers");
 router.get("/", homepage);
 
 /**api POST /signup */
-router.post(
-    "/signup",
-    [
-        check("username", "username have atleast 4 characters").isLength({
-            min: 4,
-        }),
-        check("password", "password have atleast 6 characters").isLength({
-            min: 6,
-        }),
-        check("email", "Invalid email").isEmail(),
-    ],
+router.post("/signup", signup);
 
-    signup
-);
+/**api POST /signin */
+router.post("/signin", signin);
 
 module.exports = router;
